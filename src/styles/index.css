@@ -1,31 +1,29 @@
 /* ==========================================================================
-   Global styles — order matters
+   Global styles — powered by css-starter
    ========================================================================== */
 
-/* --- tokens --- */
+/* --- Shared foundation (tokens, reset, base element styles) --- */
 
-@import './tokens/color.css';
-@import './tokens/type.css';
-@import './tokens/spacing.css';
-@import './tokens/border.css';
-@import './tokens/shadow.css';
-@import './tokens/easing.css';
-@import './tokens/layout.css';
+@import 'css-starter';
 
-/* --- reset --- */
+/* --- Project-specific overrides --- */
+/* Override any token here to customise the design system for this project.
+   The defaults in css-starter already match Vue's brand colours, so the
+   override below is a no-op — it's kept as a pattern to follow. */
 
-@import './reset.css';
+:root {
+  /* Vue brand overrides */
+  --c-primary: #42b883;
+  --c-primary-hover: #38a070;
+  --c-primary-active: #2e8c5e;
+  --c-primary-subtle: rgba(66, 184, 131, 0.08);
+  --c-focus-ring: rgba(66, 184, 131, 0.35);
+}
 
-/* --- base element styles --- */
-
-@import './base/body.css';
-@import './base/typography.css';
-@import './base/link.css';
-@import './base/button.css';
-@import './base/code.css';
-@import './base/form.css';
-@import './base/table.css';
-
-/* --- utilities --- */
-
-@import './base/utility.css';
+:root[data-theme='dark'] {
+  --c-primary: #5cdba0;
+  --c-primary-hover: #46c98a;
+  --c-primary-active: #3bb37a;
+  --c-primary-subtle: rgba(92, 219, 160, 0.12);
+  --c-focus-ring: rgba(92, 219, 160, 0.4);
+}

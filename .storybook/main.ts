@@ -5,6 +5,7 @@ import type { StorybookConfig } from '@storybook/vue3-vite'
  *
  * Addons:
  * - `@chromatic-com/storybook` — visual regression reviews
+ * - `@storybook/addon-themes` — light/dark theme toggle via data-theme
  * - `@storybook/addon-vitest` — run stories as Vitest tests
  * - `@storybook/addon-a11y` — accessibility audits per story
  * - `@storybook/addon-docs` — auto-generated documentation
@@ -13,6 +14,7 @@ const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
   addons: [
     '@chromatic-com/storybook',
+    '@storybook/addon-themes',
     '@storybook/addon-vitest',
     '@storybook/addon-a11y',
     '@storybook/addon-docs',
