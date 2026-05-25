@@ -1,7 +1,17 @@
 import js from '@eslint/js'
 import tseslint from 'typescript-eslint'
 import pluginVue from 'eslint-plugin-vue'
+import prettier from 'eslint-config-prettier'
 
+/**
+ * ESLint flat configuration.
+ *
+ * Combines:
+ * - `@eslint/js` recommended rules
+ * - `typescript-eslint` for TypeScript files
+ * - `eslint-plugin-vue` for Vue SFCs (with TypeScript parser)
+ * - `eslint-config-prettier` to disable rules that conflict with Prettier
+ */
 export default [
   js.configs.recommended,
   ...tseslint.configs.recommended,
@@ -21,6 +31,12 @@ export default [
     languageOptions: {
       globals: {
         console: 'readonly',
+        document: 'readonly',
+        window: 'readonly',
+        KeyboardEvent: 'readonly',
+        HTMLElement: 'readonly',
+        MouseEvent: 'readonly',
+        FocusEvent: 'readonly',
       },
     },
     rules: {
@@ -30,4 +46,5 @@ export default [
       '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
     },
   },
+  prettier,
 ]

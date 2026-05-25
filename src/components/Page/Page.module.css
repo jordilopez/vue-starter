@@ -1,0 +1,48 @@
+/* CSS class naming: l- prefix for layouts */
+.l-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.centered {
+  align-items: center;
+  justify-content: center;
+}
+
+.header {
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.subtitle {
+  margin: 0.25rem 0 0;
+  font-size: 0.95rem;
+  color: #666;
+}
+
+.main {
+  flex: 1;
+  padding: 2rem;
+  width: 100%;
+}
+
+.narrow {
+  max-width: 720px;
+  margin-inline: auto;
+}
+
+.footer {
+  padding: 1rem 2rem;
+  border-top: 1px solid #e9ecef;
+  font-size: 0.85rem;
+  color: #888;
+  text-align: center;
+}

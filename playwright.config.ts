@@ -1,0 +1,32 @@
+import { defineConfig, devices } from '@playwright/test'
+
+/**
+ * Playwright E2E test configuration.
+ *
+ * Spins up the Vite dev server automatically before running tests.
+ * Tests are located in `tests/` directory.
+ */
+export default defineConfig({
+  testDir: './tests',
+  fullyParallel: false,
+  forbidOnly: !!process.env.CI,
+  retries: process.env.CI ? 1 : 0,
+  workers: 1,
+  reporter: [['list'], ['html', { outputFolder: 'playwright-report' }]],
+  use: {
+    baseURL: 'http://localhost:5173',
+    trace: 'on-first-retry',
+  },
+  projects: [
+    {
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'] },
+    },
+  ],
+  webServer: {
+    command: 'npm run dev',
+    url: 'http://localhost:5173',
+    reuseExistingServer: !process.env.CI,
+    timeout: 10_000,
+  },
+})
