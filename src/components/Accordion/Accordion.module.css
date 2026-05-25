@@ -1,14 +1,15 @@
-/* CSS class naming: c- prefix for components */
+/* c-accordion — design tokens via custom properties */
+
 .c-accordion {
   display: flex;
   flex-direction: column;
-  border: 1px solid #dee2e6;
-  border-radius: 8px;
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-lg);
   overflow: hidden;
 }
 
 .panel {
-  border-bottom: 1px solid #dee2e6;
+  border-bottom: 1px solid var(--c-border);
 
   &:last-child {
     border-bottom: none;
@@ -20,25 +21,24 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 0.75rem 1rem;
+  padding: var(--sp-3) var(--sp-4);
   font-family: inherit;
-  font-size: 0.95rem;
-  font-weight: 500;
+  font-size: var(--fs-base);
+  font-weight: var(--fw-medium);
   background: none;
   border: none;
   cursor: pointer;
   text-align: left;
-  color: #333;
+  color: var(--c-text);
 
   &:hover {
-    background-color: #f8f9fa;
+    background-color: var(--c-bg-subtle);
   }
 }
 
 .chevron {
-  transition: transform 0.2s;
+  transition: transform var(--transition-base);
 
-  /* open state via data attribute on the panel */
   .panel:where([data-open]) & {
     transform: rotate(180deg);
   }
@@ -46,21 +46,21 @@
 
 .body {
   overflow: hidden;
-  transition:
-    grid-template-rows 0.3s,
-    padding 0.3s;
   display: grid;
   grid-template-rows: 0fr;
+  transition:
+    grid-template-rows var(--transition-slow),
+    padding var(--transition-slow);
 
   .panel:where([data-open]) & {
     grid-template-rows: 1fr;
-    padding: 0 1rem 0.75rem;
+    padding: 0 var(--sp-4) var(--sp-3);
   }
 }
 
 .bodyInner {
   overflow: hidden;
-  font-size: 0.9rem;
-  line-height: 1.5;
-  color: #555;
+  font-size: var(--fs-sm);
+  line-height: var(--lh-loose);
+  color: var(--c-text-secondary);
 }
