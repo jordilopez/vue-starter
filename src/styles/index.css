@@ -20,10 +20,12 @@
   --c-focus-ring: rgba(66, 184, 131, 0.35);
 }
 
-:root[data-theme='dark'] {
-  --c-primary: #5cdba0;
-  --c-primary-hover: #46c98a;
-  --c-primary-active: #3bb37a;
-  --c-primary-subtle: rgba(92, 219, 160, 0.12);
-  --c-focus-ring: rgba(92, 219, 160, 0.4);
+@media (prefers-color-scheme: dark) {
+  :root {
+    --c-primary: #5cdba0;
+    --c-primary-hover: #46c98a;
+    --c-primary-active: #3bb37a;
+    --c-primary-subtle: rgba(92, 219, 160, 0.12);
+    --c-focus-ring: rgba(92, 219, 160, 0.4);
+  }
 }
