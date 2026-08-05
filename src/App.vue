@@ -3,8 +3,8 @@
  * Root application component.
  *
  * Composes the `LPage` layout shell with `CButton` and `CAccordion`
- * samples to demonstrate the component conventions used across the
- * project (CSS Modules, data attributes, native nesting).
+ * samples. Components are headless — their styles come from the shared
+ * `css-starter` design system via the `.c-button` class.
  */
 import LPage from './components/Page/Page.vue'
 import CButton from './components/Button/Button.vue'
@@ -13,17 +13,18 @@ import CAccordion from './components/Accordion/Accordion.vue'
 const accordionItems = [
   {
     title: 'What is this?',
-    content: 'A Vue 3 starter with TypeScript, Storybook, CSS Modules, and more.',
+    content:
+      'A Vue 3 starter with TypeScript, Storybook, and headless components styled by css-starter.',
   },
   {
     title: 'Component pattern',
     content:
-      'Components live in folders named after the component, each with .vue, .css, .ts, .spec.ts, and .stories.ts files.',
+      'Components live in folders named after the component, each with .vue, .ts, .spec.ts, and .stories.ts files.',
   },
   {
-    title: 'Data attributes',
+    title: 'Headless styling',
     content:
-      'Variants and state use data-* attributes instead of modifier classes, e.g. data-disabled.',
+      'Components carry no local CSS — they apply css-starter classes like .c-button and inherit tokens from the design system.',
   },
 ]
 
@@ -36,14 +37,13 @@ function handleClick(): void {
   <LPage title="Vue Starter" subtitle="A modern foundation for Vue 3 projects">
     <div class="hero">
       <p class="intro">
-        This starter uses <strong>CSS Modules</strong> with native CSS nesting,
-        <strong>data attributes</strong> for component state, and a consistent folder structure per
-        component.
+        This starter ships <strong>headless components</strong> — no local styles. The shared
+        <strong>css-starter</strong> design system handles the visuals via tokens and base classes.
       </p>
 
       <div class="actions">
-        <CButton label="Get started" variant="primary" size="lg" @click="handleClick" />
-        <CButton label="Learn more" variant="ghost" @click="handleClick" />
+        <CButton label="Get started" @click="handleClick" />
+        <CButton label="Learn more" @click="handleClick" />
       </div>
 
       <details class="faq">

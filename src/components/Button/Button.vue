@@ -1,33 +1,26 @@
 <script setup lang="ts">
 /**
- * Reusable button component.
+ * Headless button component.
  *
- * Supports three visual variants (`primary`, `secondary`, `ghost`),
- * three sizes (`sm`, `md`, `lg`), and a `disabled` state exposed via
- * `data-disabled` on the host element.
+ * No local styles. The visual comes from `css-starter`'s native button
+ * styles (neutral variant); `.c-button` is applied as a class hook.
+ * Native attributes (aria-*, id, class, ...) fall through to the
+ * `<button>` element.
  *
  * @usage
  * ```html
- * <CButton label="Submit" variant="primary" size="lg" @click="onSubmit" />
+ * <CButton label="Submit" @click="onSubmit" />
+ * <!-- or with a slot: -->
+ * <CButton @click="onSubmit">Submit</CButton>
  * ```
  */
-import { computed } from 'vue'
 import type { ButtonProps, ButtonEmits } from './Button'
-import styles from './Button.module.css'
 
 const props = withDefaults(defineProps<ButtonProps>(), {
-  variant: 'primary',
-  size: 'md',
   disabled: false,
 })
 
 const emit = defineEmits<ButtonEmits>()
-
-const classes = computed(() => [styles['c-button'], styles[props.size], styles[props.variant]])
-
-const attrs = computed(() => ({
-  'data-disabled': props.disabled ? '' : undefined,
-}))
 
 function handleClick(): void {
   if (!props.disabled) emit('click')
@@ -35,8 +28,7 @@ function handleClick(): void {
 </script>
 
 <template>
-  <button :class="classes" v-bind="attrs" @click="handleClick">
-    <slot />
-    {{ label }}
+  <button type="button" class="c-button" :disabled="props.disabled" @click="handleClick">
+    <slot>{{ label }}</slot>
   </button>
 </template>
