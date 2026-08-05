@@ -11,7 +11,7 @@ import type { StorybookConfig } from '@storybook/vue3-vite'
  * - `@storybook/addon-docs` — auto-generated documentation
  */
 const config: StorybookConfig = {
-  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
+  stories: ['../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
   addons: [
     '@chromatic-com/storybook',
     '@storybook/addon-themes',
