@@ -1,8 +1,8 @@
 # Vue Starter
 
-A modern Vue 3 starter project with TypeScript, Vite, Storybook, CSS
-Modules (native nesting), and comprehensive testing — ready to build
-from day one.
+A modern Vue 3 starter project with TypeScript, Vite, Storybook, headless
+components styled by the shared css-starter design system, and
+comprehensive testing — ready to build from day one.
 
 ## Stack
 
@@ -10,9 +10,9 @@ from day one.
 - **TypeScript** — strict mode, bundled with Vite
 - **Vite 8** — fast dev server and builds
 - **Storybook 10** — component explorer with a11y, docs, and vitest addons
-- **CSS Modules** — scoped, hashed class names, **native CSS nesting**
-- **Data attributes** — component variants and state use `data-*` attrs
-  instead of modifier classes
+- **css-starter** — shared design system (tokens, reset, native element styles)
+- **Headless components** — no local styles on primitives; css-starter
+  styles native elements directly
 - **Vitest** — unit tests + Storybook integration with Playwright
 - **Husky + lint-staged** — pre-commit hooks (Prettier → ESLint → Gitleaks)
 - **EditorConfig** — consistent editor settings
@@ -54,71 +54,65 @@ npm run dev
 
 ### Naming
 
-| Prefix | Use                 | Examples                  |
-| ------ | ------------------- | ------------------------- |
-| `c-`   | Reusable components | `c-button`, `c-accordion` |
-| `l-`   | Layout wrappers     | `l-page`, `l-sidebar`     |
+| Prefix | Use                           | Examples    |
+| ------ | ----------------------------- | ----------- |
+| `c-`   | Class hook on UI primitives   | `.c-button` |
+| `l-`   | Class hook on layout wrappers | `.l-page`   |
 
-Folder names are descriptive without prefixes; the prefix goes on the
-file names inside.
+Folder and file names are descriptive `PascalCase` (no prefix):
 
 ```
 src/components/
 ├── Button/
-│   ├── c-button.vue
-│   ├── c-button.module.css
-│   ├── c-button.ts
-│   ├── c-button.spec.ts
-│   └── c-button.stories.ts
+│   ├── Button.vue
+│   ├── Button.ts
+│   ├── Button.spec.ts
+│   └── Button.stories.ts
 ├── Accordion/
 │   └── …
 └── Page/
-    └── l-page.vue …
+    └── …
 ```
+
+### Headless primitives
+
+UI primitives like `CButton` are **headless**: no local CSS, no modifier
+classes. They render the native element and let css-starter style it:
+
+```vue
+<button type="button" class="c-button" :disabled="props.disabled" @click="handleClick">
+  <slot>{{ label }}</slot>
+</button>
+```
+
+- The visual comes from css-starter's native element styles
+  (`:where(button)`) and tokens (`--btn-*`, `--c-*`, …)
+- Native semantics win: `disabled`, `aria-*`, `type` — not custom state
+  attributes
+- Attributes fall through to the native element automatically
+
+Components with bespoke behavior (e.g. `Accordion`, `Page`) may keep a
+local `*.module.css` with native CSS nesting and their own state
+attributes (`data-open`).
 
 ### Each component folder contains
 
-- `c-{name}.vue` — the SFC (`<script setup lang="ts">`)
-- `c-{name}.module.css` — scoped styles with native CSS nesting
-- `c-{name}.ts` — TypeScript interfaces (props, emits, slots)
-- `c-{name}.spec.ts` — Vitest unit tests
-- `c-{name}.stories.ts` — Storybook stories
-
-### Data attributes for state
-
-Variants and state use `data-*` attributes instead of modifier classes.
-
-```vue
-<!-- Instead of is-open class → -->
-<div :class="styles.panel" v-bind="ns.data('open', isOpen || undefined)">
-```
-
-```css
-/* CSS targets the data attribute via native :where() */
-.panel:where([data-c-accordion-open]) { … }
-```
-
-The `useNamespace()` composable generates consistent attribute names:
-`data-c-button-disabled`, `data-c-button-variant`, `data-c-accordion-open`.
+- `{Name}.vue` — the SFC (`<script setup lang="ts">`)
+- `{Name}.ts` — TypeScript interfaces (props, emits, slots)
+- `{Name}.spec.ts` — Vitest unit tests
+- `{Name}.stories.ts` — Storybook stories
+- `{Name}.module.css` — only when the component needs local styles
 
 ### CSS
 
-All `*.module.css` files use **native CSS nesting**:
+Local styles use **native CSS nesting**:
 
 ```css
 .button {
   padding: 0.5em 1.2em;
 
-  &.primary {
-    background: #42b883;
-  }
-
   &:hover {
     opacity: 0.9;
-  }
-
-  &:where([data-c-button-disabled]) {
-    opacity: 0.5;
   }
 }
 ```
@@ -139,7 +133,8 @@ All three must pass before the commit goes through.
 npm run storybook
 ```
 
-Opens at [http://localhost:6006](http://localhost:6006).
+Opens at [http://localhost:6006](http://localhost:6006). Dark mode follows
+your system preference automatically.
 
 ## License
 

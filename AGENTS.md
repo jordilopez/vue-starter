@@ -2,24 +2,25 @@
 
 ## Project overview
 
-A Vue 3 starter project with TypeScript, Vite, Storybook, CSS Modules,
-Vitest, and pre-commit hooks (ESLint + Prettier + Gitleaks).
+A Vue 3 starter project with TypeScript, Vite, Storybook, headless
+components styled by the shared css-starter design system, Vitest, and
+pre-commit hooks (ESLint + Prettier + Gitleaks).
 
 ## Tech stack
 
-| Layer            | Choice                                                  |
-| ---------------- | ------------------------------------------------------- |
-| Framework        | Vue 3 (`<script setup lang="ts">`)                      |
-| Language         | TypeScript (strict mode)                                |
-| Build            | Vite 8                                                  |
-| Testing          | Vitest + `@vue/test-utils` (unit), Playwright (browser) |
-| Storybook        | v10 + addon-a11y + addon-docs + vitest addon            |
-| Styling          | CSS Modules (`*.module.css`, native CSS nesting)        |
-| Variants / state | `data-*` attributes instead of modifier classes         |
-| Linting          | ESLint (flat config) + Prettier                         |
-| Secrets          | Gitleaks (pre-commit hook)                              |
-| Git hooks        | Husky + lint-staged                                     |
-| Node             | v24 (`.nvmrc`)                                          |
+| Layer      | Choice                                                                                                |
+| ---------- | ----------------------------------------------------------------------------------------------------- |
+| Framework  | Vue 3 (`<script setup lang="ts">`)                                                                    |
+| Language   | TypeScript (strict mode)                                                                              |
+| Build      | Vite 8                                                                                                |
+| Testing    | Vitest + `@vue/test-utils` (unit), Playwright (browser)                                               |
+| Storybook  | v10 + addon-a11y + addon-docs + vitest addon                                                          |
+| Styling    | [css-starter](../css-starter) (tokens + native element styles); optional `*.module.css` per component |
+| Components | Headless primitives — no local styles, native semantics                                               |
+| Linting    | ESLint (flat config) + Prettier                                                                       |
+| Secrets    | Gitleaks (pre-commit hook)                                                                            |
+| Git hooks  | Husky + lint-staged                                                                                   |
+| Node       | v24 (`.nvmrc`)                                                                                        |
 
 ## Project structure
 
@@ -28,42 +29,40 @@ src/
 ├── main.ts
 ├── App.vue
 ├── env.d.ts
-├── style.css                       # Global styles
-├── composables/
-│   └── use-namespace.ts             # Data-attribute + naming helpers
+├── styles/
+│   └── index.css               # Imports css-starter (tokens, reset, base styles)
 └── components/
     ├── Button/
-    │   ├── c-button.vue             # Component SFC
-    │   ├── c-button.module.css      # CSS Module (native nesting)
-    │   ├── c-button.ts              # Props / emits / types
-    │   ├── c-button.spec.ts         # Unit test
-    │   └── c-button.stories.ts      # Storybook story
+    │   ├── Button.vue          # Headless SFC (no .module.css)
+    │   ├── Button.ts           # Props / emits / types
+    │   ├── Button.spec.ts      # Unit test
+    │   └── Button.stories.ts   # Storybook story
     ├── Accordion/
-    │   ├── c-accordion.vue
-    │   ├── c-accordion.module.css
-    │   ├── c-accordion.ts
-    │   ├── c-accordion.spec.ts
-    │   └── c-accordion.stories.ts
+    │   ├── Accordion.vue
+    │   ├── Accordion.module.css # Local styles (native nesting)
+    │   ├── Accordion.ts
+    │   ├── Accordion.spec.ts
+    │   └── Accordion.stories.ts
     └── Page/
-        ├── l-page.vue               # Layout component
-        ├── l-page.module.css
-        ├── l-page.ts
-        ├── l-page.spec.ts
-        └── l-page.stories.ts
+        ├── Page.vue            # Layout component (l-page class)
+        ├── Page.module.css
+        ├── Page.ts
+        ├── Page.spec.ts
+        └── Page.stories.ts
 ```
 
 ## Conventions
 
 ### Naming
 
-| Prefix | Use                 | Examples                  |
-| ------ | ------------------- | ------------------------- |
-| `c-`   | Reusable components | `c-button`, `c-accordion` |
-| `l-`   | Layout wrappers     | `l-page`, `l-sidebar`     |
-| `u-`   | Utility helpers     | `u-visually-hidden`       |
+| Prefix | Use                           | Examples    |
+| ------ | ----------------------------- | ----------- |
+| `c-`   | Class hook on UI primitives   | `.c-button` |
+| `l-`   | Class hook on layout wrappers | `.l-page`   |
 
-**Folder names** are descriptive (no prefix). **File names** include the
-prefix: `Button/c-button.vue`, `Page/l-page.vue`.
+**Folder and file names** are descriptive `PascalCase` (no prefix):
+`Button/Button.vue`, `Page/Page.vue`. The `c-`/`l-` prefixes appear as
+CSS **class hooks**, not file names.
 
 ### Vue components
 
@@ -71,55 +70,32 @@ prefix: `Button/c-button.vue`, `Page/l-page.vue`.
 - Props defined in a dedicated `.ts` file, imported and used with
   `defineProps<Type>()` / `withDefaults(defineProps<Type>(), {…})`
 - Emits typed with `defineEmits<Type>()` (interface from `.ts` file)
-- All state and variants use `data-*` attributes (never modifier classes)
+- Native semantics win: `disabled`, `aria-*`, `type` — no custom
+  `data-*` state attributes on primitives
 
-### CSS Modules
+### Headless styling
 
-- Files named `*.module.css`, imported as `import styles from './foo.module.css'`
-- Classes accessed via `styles.className`
-- **Native CSS nesting** everywhere (`&.sm`, `&:hover`, `.parent &`)
-- Variant classes only for visual presets; state goes in `data-*` attrs
+UI primitives (e.g. `CButton`) carry **no local CSS**. They render the
+native element with a `c-` class hook and css-starter does the styling:
 
-### Data attributes over modifier classes
-
-Instead of `<div class="panel is-open">`, use
-`<div :class="styles.panel" v-bind="ns.data('open', true)">`.
-
-The `useNamespace()` composable generates consistent data attribute names:
-
-```
-ns.data('disabled', true)   →  { 'data-c-button-disabled': '' }
-ns.data('open', false)      →  undefined  (attribute is omitted)
-ns.data('variant', 'ghost') →  { 'data-c-button-variant': 'ghost' }
+```vue
+<button type="button" class="c-button" :disabled="props.disabled" @click="handleClick">
+  <slot>{{ label }}</slot>
+</button>
 ```
 
-CSS targets these via:
-
-```css
-.button:where([data-c-button-disabled]) { … }
-.panel:where([data-c-accordion-open]) { … }
-```
-
-### Component folder structure
-
-Each component has its own folder named descriptively, containing exactly
-these files:
-
-```
-ComponentName/
-├── c-component.vue          # SFC
-├── c-component.module.css   # Styles (CSS Module, native nesting)
-├── c-component.ts           # TypeScript types
-├── c-component.spec.ts      # Vitest unit tests
-└── c-component.stories.ts   # Storybook stories
-```
+- Visuals come from css-starter's native element selectors (`:where(button)`)
+  and tokens (`--btn-*`, `--c-*`, …)
+- Components with bespoke behavior may keep a `*.module.css` (native CSS
+  nesting) and component-specific state attributes (e.g. `data-open` on
+  `Accordion` panels)
 
 ### Testing
 
-- Unit tests colocated: `ComponentName/c-component.spec.ts`
+- Unit tests colocated: `ComponentName/{Name}.spec.ts`
 - Use `@vue/test-utils` `mount()` + `vitest` assertions
-- Check CSS Module classes with `wrapper.classes().some(c => c.includes('…'))`
-- Check data attributes with `wrapper.attributes('data-c-…')`
+- Check class hooks with `wrapper.find('button').classes()`
+- Check native attributes with `wrapper.find('button').attributes('disabled')`
 
 ### Scripts
 
