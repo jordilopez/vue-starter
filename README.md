@@ -68,6 +68,11 @@ src/components/
 │   ├── Button.ts
 │   ├── Button.spec.ts
 │   └── Button.stories.ts
+├── Link/
+│   ├── Link.vue
+│   ├── Link.ts
+│   ├── Link.spec.ts
+│   └── Link.stories.ts
 ├── Accordion/
 │   └── …
 └── Page/

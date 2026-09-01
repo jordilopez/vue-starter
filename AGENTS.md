@@ -37,6 +37,11 @@ src/
     │   ├── Button.ts           # Props / emits / types
     │   ├── Button.spec.ts      # Unit test
     │   └── Button.stories.ts   # Storybook story
+    ├── Link/
+    │   ├── Link.vue            # Headless SFC
+    │   ├── Link.ts             # Props / emits / types
+    │   ├── Link.spec.ts        # Unit test
+    │   └── Link.stories.ts     # Storybook story
     ├── Accordion/
     │   ├── Accordion.vue
     │   ├── Accordion.module.css # Local styles (native nesting)
