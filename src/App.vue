@@ -2,12 +2,14 @@
 /**
  * Root application component.
  *
- * Composes the `LPage` layout shell with `CButton` and `CAccordion`
- * samples. Components are headless — their styles come from the shared
- * `css-starter` design system via the `.c-button` class.
+ * Composes the `LPage` layout shell with `CButton`, `CLink`, and
+ * `CAccordion` samples. Components are headless — their styles come from
+ * the shared `css-starter` design system via the `.c-button`/`.c-link`
+ * class hooks.
  */
 import LPage from './components/Page/Page.vue'
 import CButton from './components/Button/Button.vue'
+import CLink from './components/Link/Link.vue'
 import CAccordion from './components/Accordion/Accordion.vue'
 
 const accordionItems = [
@@ -46,6 +48,11 @@ function handleClick(): void {
         <CButton label="Learn more" @click="handleClick" />
       </div>
 
+      <div class="links">
+        <CLink href="/docs" label="Read the docs" />
+        <CLink href="/docs" label="Disabled link" disabled />
+      </div>
+
       <details class="faq">
         <summary>FAQ</summary>
         <CAccordion :items="accordionItems" />
@@ -72,6 +79,12 @@ function handleClick(): void {
 .actions {
   display: flex;
   gap: 0.75rem;
+}
+
+.links {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
 }
 
 .faq summary {
