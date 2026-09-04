@@ -1,3 +1,4 @@
+/** Props for the `CPage` layout component. */
 export interface PageProps {
   /** Page-level heading rendered inside `<h1>`. */
   title?: string
@@ -9,6 +10,7 @@ export interface PageProps {
   narrow?: boolean
 }
 
+/** Named slots supported by the `CPage` layout component. */
 export interface PageSlots {
   /** Primary content rendered inside `<main>`. */
   default(): unknown

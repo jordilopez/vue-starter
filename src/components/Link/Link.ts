@@ -1,3 +1,4 @@
+/** Props for the headless `CLink` component. */
 export interface LinkProps {
   /** Destination URL. Required. */
   href: string
@@ -13,6 +14,7 @@ export interface LinkProps {
   openInNewTab?: boolean
 }
 
+/** Events emitted by the headless `CLink` component. */
 export interface LinkEmits {
   /** Fired on click when `disabled` is `false`. */
   click: [event: MouseEvent]

@@ -1,3 +1,4 @@
+/** Props for the headless `CButton` component. */
 export interface ButtonProps {
   /** Visible label text inside the button. */
   label?: string
@@ -5,6 +6,7 @@ export interface ButtonProps {
   disabled?: boolean
 }
 
+/** Events emitted by the headless `CButton` component. */
 export interface ButtonEmits {
   /** Fired on click when `disabled` is `false`. */
   click: []
