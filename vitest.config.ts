@@ -43,7 +43,7 @@ export default defineConfig({
           name: 'storybook',
           browser: {
             enabled: true,
-            headonly: true,
+            headless: true,
             provider: playwright({}),
             instances: [{ browser: 'chromium' }],
           },
