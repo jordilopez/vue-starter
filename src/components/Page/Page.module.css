@@ -14,19 +14,19 @@
 .header {
   padding: var(--sp-5) var(--sp-6);
   border-bottom: 1px solid var(--c-border-light);
-}
 
-.title {
-  margin: 0;
-  font-size: var(--fs-xl);
-  font-weight: var(--fw-semibold);
-  color: var(--c-text);
-}
+  .title {
+    margin: 0;
+    font-size: var(--fs-xl);
+    font-weight: var(--fw-semibold);
+    color: var(--c-text);
+  }
 
-.subtitle {
-  margin: var(--sp-1) 0 0;
-  font-size: var(--fs-sm);
-  color: var(--c-text-muted);
+  .subtitle {
+    margin: var(--sp-1) 0 0;
+    font-size: var(--fs-sm);
+    color: var(--c-text-muted);
+  }
 }
 
 .main {
