@@ -35,8 +35,12 @@ export default [
         window: 'readonly',
         KeyboardEvent: 'readonly',
         HTMLElement: 'readonly',
+        HTMLDialogElement: 'readonly',
         MouseEvent: 'readonly',
         FocusEvent: 'readonly',
+        Event: 'readonly',
+        setTimeout: 'readonly',
+        clearTimeout: 'readonly',
       },
     },
     rules: {
