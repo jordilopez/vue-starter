@@ -23,6 +23,7 @@
     "format": "prettier --write \"src/**/*.{ts,vue,css,json}\"",
     "lint": "eslint src/ && npm run lint:css",
     "lint:css": "stylelint \"src/**/*.module.css\"",
+    "typecheck": "vue-tsc --noEmit",
     "test:e2e": "playwright test",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
@@ -53,9 +54,11 @@
     "stylelint": "^17.15.0",
     "stylelint-config-standard": "^40.0.0",
     "stylelint-use-nesting": "^6.0.2",
+    "typescript": "5.9.3",
     "typescript-eslint": "^8.59.4",
     "vite": "^8.0.14",
-    "vitest": "^4.1.7"
+    "vitest": "^4.1.7",
+    "vue-tsc": "3.1.8"
   },
   "dependencies": {
     "@lucide/vue": "^1.41.0",
