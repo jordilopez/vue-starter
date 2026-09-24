@@ -188,6 +188,9 @@ All three must pass before the commit goes through.
 
 ## Storybook
 
+The deployed Storybook is available at
+[https://jordilopez.github.io/vue-starter/](https://jordilopez.github.io/vue-starter/).
+
 ```bash
 npm run storybook
 ```
